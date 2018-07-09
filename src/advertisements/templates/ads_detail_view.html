@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block head_title %} Publicar || {{ block.super }} {% endblock head_title %}
+
+{% block content %}
+
+	<div class="row">
+
+		<div class="col-sm-12">
+			
+			<h1>Comprar Bitcoins mediante {{ object.payment_method }} con {{ object.currency.iso }}</h1>
+
+		</div>
+
+	</div>
+
+	<div class="row">
+		
+		<div class="col-sm-6">
+
+		<table class="table">
+		  <tbody>
+		    <tr class="table-active">
+		      <td>Precio</td>
+		      <td>{{ object.price }}</td>
+		    </tr>
+		    <tr>
+		      <td>Metodo de pago</td>
+		      <td>{{ object.payment_method }}</td>
+		    </tr>
+		    <tr class="table-active">
+		      <td>Usuario</td>
+		      <td><a href="{% url 'profiles:detail' object.owner.username %}">{{ object.owner.username }}</a></td>
+		    </tr>
+		    <tr>
+		      <td>Límites de transacción</td>
+		      <td>{{ object.get_limits }}</td>
+		    </tr>
+		    <tr class="table-active">
+		      <td>Ubicacion</td>
+		      <td>{{ object.location }}</td>
+		    </tr>
+		  </tbody>
+		</table>
+
+		{% if not object.is_active %}
+
+		<div class="alert alert-primary" role="alert">
+		  {{ object.get_active }}
+		  {% if messages %}
+		  	{% for message in messages %}
+		  		<p>{{ message }}</p>
+		  	{% endfor %}
+		  {% endif %}
+		</div>
+
+		{% else %}
+
+		<div>
+
+			<p>Cuanto quieres comprar ?</p>
+
+
+			<form action="">
+	
+			<label for="amount">{{ object.currency.iso }}</label>
+			<input type="number" name="amount">
+
+			<label for="btc">BTC</label>
+			<input type="number" name="btc">
+
+			{% if not request.user.is_authenticated %}
+
+				<p>Registrate para comprar bitcoins instantaneamente</p>
+
+				<a href="{% url 'auth:register' %}?next={% firstof request.path '/' %}" class="btn btn-outline-primary btn-block">Register</a>
+
+			{% else %}
+
+			<textarea name="message" id="" cols="30" rows="10" placeholder="Agrega un mensaje (opcional)"></textarea>
+			<input type="submit" class="btn btn-outline-primary btn-block" value="Enviar solicitud de intercambio">
+
+			</form>
+
+			{% endif %}
+			
+
+		</div>
+
+		{% endif %}
+
+		</div>
+		<div class="col-sm-3">
+
+			<p>Términos de la transaccion</p>
+
+			<div>
+				{{ object.terms }}
+			</div>
+			
+		</div>
+	</div>
+
+
+{% endblock %}

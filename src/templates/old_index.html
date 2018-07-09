@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block head_title %} Index || {{ block.super }} {% endblock head_title %}
+
+
+{% block content %}
+
+<div class="row">
+	<div class="col-sm-6 offset-3">
+		{% if messages %}
+			{% for message in messages %}
+				<p>{{ message }}</p>
+			{% endfor %}
+		{% endif %}
+
+		<form method="get">
+		{{ filter.form.as_p }}
+		<button type="submit">Search</button>
+
+			<p>Filter</p>
+			
+			<ul>
+			
+			{% if filter.is_bound %}
+
+			{% for obj in filter.qs %}
+
+				<li> {{ obj }} </li>
+
+			{% endfor %}
+
+			</ul>
+
+			{% endif %}
+
+
+			<p>Buy</p>
+
+			<ul>
+
+				{% for obj in buy_objects %}
+
+				<li>{{ obj }}</li>
+
+				{% empty %}
+
+				<li>No hay ofertas de compra</li>
+
+				{% endfor %}
+					
+
+			</ul>
+			<p>Sell</p>
+			<ul>
+
+				{% for obj in sell_objects %}
+
+				<li>{{ obj }}</li>
+
+				{% empty %}
+
+				<li>No hay ofertas de venta</li>
+
+				{% endfor %}
+					
+
+			</ul>
+
+
+			
+	</div>	
+
+	
+</div>
+
+
+
+
+{% endblock %}

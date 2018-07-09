@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block head_title %} Register || {{ block.super }} {% endblock head_title %}
+
+{% block script %} <script src='https://www.google.com/recaptcha/api.js'></script> {% endblock script %}
+
+{% block content %}
+
+	<div class="row">
+
+		{% if messages %}
+			{% for message in messages %}
+				<p>{{ message }}</p>
+			{% endfor %}
+		{% endif %}
+
+		<div class="col-sm-6 ">
+
+			<h1>{{ object.user.username }}</h1>
+
+			<p>Informacion sobre <span>{{ object.user.username }}</span></p>
+
+			<table class="table">
+			  <tbody>
+			    <tr class="table-active">
+			      <td>Numero de intercambios <br>confirmados:</td>
+			      <td>{{ object.number_of_exchanges }}</td>
+			    </tr>
+			    <tr>
+			      <td>Volumen de comercio:</td>
+			      <td>{{ object.commerce_volume }}</td>
+			    </tr>
+			    <tr class="table-active">
+			      <td>Puntuacion basada en comentarios:</td>
+			      <td>{{ object.punctuation }}</td>
+			    </tr>
+			    <tr>
+			      <td>Cuenta creada</td>
+			      <td>{{ object.user.created_at }}</td>
+			    </tr>
+			    <tr class="table-active">
+			      <td>Correo electronico</td>
+			      <td>{{ object.user.email_verification }}</td>
+			    </tr>
+			    <tr>
+			      <td>Confianza</td>
+			      <td>{{ object.trusted.count }}</td>
+			    </tr>
+			    <tr class="table-active">
+			      <td>Bloqueos</td>
+			      <td>{{ object.blocked.count }}</td>
+			    </tr>
+			  </tbody>
+			</table>
+			
+			{% if updateable %}
+
+				<a href="{% url 'profiles:update' request.user.username %}">Editar informacion personal</a>
+				<br>
+				<a href="{% url 'auth:update' request.user.pk %}">Agregar nombre completo</a>
+
+				<br>
+
+				<a href="#">Cambiar contraseña</a>
+
+			{% endif %}
+
+		</div>
+
+	</div>
+
+{% endblock %}

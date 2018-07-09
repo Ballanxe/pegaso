@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block head_title %} Login || {{ block.super }} {% endblock head_title %}
+
+{% block script %} <script src='https://www.google.com/recaptcha/api.js'></script> {% endblock script %}
+
+
+{% block content %}
+
+	<div class="row">
+		<div class="col-sm-4 offset-4">
+
+			<form class="register_form" method="post" action="{% url 'auth:login' %}"> <!-- Esta parte tiene que coincidir con el name del loginView -->
+				{% csrf_token %}
+
+				{{ form.as_p }}
+
+				<div class="g-recaptcha" data-sitekey="6LdtTV8UAAAAAG4w5a3YeMRAuYholbz2HPZAkY0G"></div>
+				<input type="submit" value="login" />
+			</form>
+
+		</div>
+
+		
+	</div>
+
+
+{% endblock %}

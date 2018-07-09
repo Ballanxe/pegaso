@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block head_title %} Sell || {{ block.super }} {% endblock head_title %}
+
+{% block content %}
+
+	<div class="row">
+
+		<div class="col-sm-12">
+
+			{% if messages %}
+				{% for message in messages %}
+					<p>{{ message }}</p>
+				{% endfor %}
+			{% endif %}
+
+			<table class="table table-hover">
+			  <thead>
+			    <tr>
+			      <th>Comprador</th>
+			      <th>Método de pago</th>
+			      <th>Precio / BTC</th>
+			      <th>Limites</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+
+			 	{% for obj in object_list %}
+
+			    <tr>
+			      <th scope="row"><a href="{% url 'profiles:detail' obj.owner.username %}">{{ obj.owner.username }}</a></th>
+			      <td>{{ obj.payment_method }}</td>
+			      <td>{{ obj.price }}</td>
+			      <td>{{ obj.get_limits }}</td>
+			      <td><a href="{% url 'ads:detail' obj.pk %}" class="btn btn-outline-primary btn-block">Vender</a></td>
+			    </tr>
+
+				{% empty %}
+
+
+				<p>No results</p>
+
+
+				{% endfor %}
+
+				</tbody>
+			</table>
+
+		</div>
+
+	</div>
+
+
+{% endblock %}

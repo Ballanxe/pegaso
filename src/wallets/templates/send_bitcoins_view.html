@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block head_title %} Send Bitcoins || {{ block.super }} {% endblock head_title %}
+
+
+{% block content %}
+
+    <div class="row">
+
+    	<div class="col-sm-6">
+
+    		<ul class="nav nav-tabs wallet-nav-tabs">
+    		  <li class="nav-item">
+    		    <a class="nav-link active" href="{% url 'wallets:send' %}">Enviar Bitcoins</a>
+    		  </li>
+    		  <li class="nav-item">
+    		    <a class="nav-link" href="{% url 'wallets:receive' %}">Recibir Bitcoin</a>
+    		  </li>
+    		  <li class="nav-item">
+    		    <a class="nav-link" href="{% url 'wallets:transactions' %}">Transacciones</a>
+    		  </li>
+    		</ul>
+
+    		<h1>Send Bitcoins</h1>
+
+    		{% if messages %}
+    			{% for message in messages %}
+    				<p>{{ message }}</p>	
+    			{% endfor %}
+    				
+    		{% endif %}
+
+    		<div class="wallet-info">
+
+				
+	    		<p>En su cartera hay: <span>{{ wallet.get_balance}}</span></p>
+	    		<p>Comision de la transaccion: <span>0.00005 BTC</span></p>
+	    		<hr>
+	    		<p>Puede enviar hasta: <span>0 BTC</span></p>
+			
+			<!-- <h3>{{ wallet.profile.user.username }} Wallet !!!</h3> -->
+<!-- 			<h3>{{ wallet.receiving_address }}</h3>
+			<p></p>
+			</div> -->
+			<!-- <p>{{ wallet.reg_private }}</p>
+			<p>{{ wallet.private }}</p>
+			<p>{{ priv }}</p> -->
+			</div>
+
+			<div class="send-bitcoin-form-wrapper">
+
+				
+
+
+			<form class="register_form" method="post" action="{% url 'wallets:send' %}"> <!-- Esta parte tiene que coincidir con el name del loginView -->
+				{% csrf_token %}
+
+
+
+				{{ form.as_p }}
+
+				<input class="btn btn-outline-primary btn-block" type="submit" value="Send" />
+
+			</form>
+
+			</div>
+		</div>
+
+    </div>
+
+
+{% endblock %}
+

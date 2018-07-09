@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block head_title %} Transactions || {{ block.super }} {% endblock head_title %}
+
+
+{% block content %}
+
+    <div class="row">
+
+    	<div class="col-sm-12">
+
+    		<ul class="nav nav-tabs  wallet-nav-tabs">
+    		  <li class="nav-item">
+    		    <a class="nav-link " href="{% url 'wallets:send' %}">Enviar Bitcoins</a>
+    		  </li>
+    		  <li class="nav-item">
+    		    <a class="nav-link" href="{% url 'wallets:receive' %}">Recibir Bitcoin</a>
+    		  </li>
+    		  <li class="nav-item">
+    		    <a class="nav-link active" href="{% url 'wallets:transactions' %}">Transacciones</a>
+    		  </li>
+    		</ul>
+
+			<h1>Transacciones de la Cartera</h1>
+
+			<table class="table table-hover table-striped">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th>Fecha</th>
+			      <th>BTC Recibidos</th>
+			      <th>BTC Enviados</th>
+			      <th>Description</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  {% for tx in transactions  %}
+
+				  <tr>
+				    <th scope="row">{{ tx.confirmed }}</th>
+				    <td>{% if tx.is_receiver %}{{ tx.value }}{% endif %}</td>
+				    <td>{% if not tx.is_receiver %}{{ tx.value }}{% endif %}</td>
+				    <td>Description</td>
+				  </tr>
+
+
+			  {% endfor %}
+
+			  </tbody>
+			</table>
+
+			<div class="pagination">
+			    <span class="step-links">
+			        {% if transactions.has_previous %}
+			            <a href="?page=1">&laquo; first</a>
+			            <a href="?page={{ transactions.previous_page_number }}">previous</a>
+			        {% endif %}
+
+			        <span class="current">
+			            Page {{ transactions.number }} of {{ transactions.paginator.num_pages }}.
+			        </span>
+
+			        {% if transactions.has_next %}
+			            <a href="?page={{ transactions.next_page_number }}">next</a>
+			            <a href="?page={{ transactions.paginator.num_pages }}">last &raquo;</a>
+			        {% endif %}
+			    </span>
+			</div>
+
+
+
+		</div>
+
+    </div>
+
+
+
+
+{% endblock %}
+
+
+
+<!-- <h3>{{ wallet.profile.user.username }} Wallet !!!</h3>
+<h3>{{ wallet.receiving_address }}</h3>
+<p>{{ wallet.get_balance}}</p>
+<!-- <p>{{ wallet.reg_private }}</p>
+<p>{{ wallet.private }}</p>
+<p>{{ priv }}</p> -->
+ <!-- --> 
+

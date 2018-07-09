@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block head_title %} Publicar || {{ block.super }} {% endblock head_title %}
+
+{% block content %}
+
+	<div class="row">
+
+		<div class="col-sm-6 offset-3">
+
+			{% if messages %}
+				{% for message in messages %}
+					<p>{{ message }}</p>
+				{% endfor %}
+			{% endif %}
+
+
+			<form class="register_form" method="post" action="{% url 'ads:create' %}"> <!-- Esta parte tiene que coincidir con el name del loginView -->
+				{% csrf_token %}
+
+
+				{{ form.as_p }}
+
+				<input class="btn btn-outline-primary btn-block" type="submit" value="Publicar" />
+			</form>
+
+		</div>
+
+	</div>
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+    data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+    aria-label="Toggle navigation" style="">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#!">Pegaso.com</a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-md-0 d-flex justify-content-sm-end>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'ads:buy' %}">Comprar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'ads:sell' %}">Vender</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'ads:create' %}">Publicar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'wallets:send' %}">Wallet</a>
+      </li>
+      {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'profiles:detail' request.user.username %}">{{ request.user.username }} </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">{{ request.user.profile_set.wallet.balance }} </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'ads:my_list' %}">Panel de control</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'auth:logout' %}">Logout</a>
+      </li>
+
+      {% else  %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'auth:login' %}">Entra</a>
+      </li>
+  	  <li class="nav-item ">
+  	  		<a class="nav-link" href="{% url 'auth:register' %}">Registrate</a>
+  		</li>
+
+      {% endif %}
+
+    </ul>
+  </div>
+</nav>

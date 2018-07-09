@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block head_title %} Update || {{ block.super }} {% endblock head_title %}
+
+{% block content %}
+
+	<div class="row">
+
+		{% if messages %}
+			{% for message in messages %}
+				<p>{{ message }}</p>
+			{% endfor %}
+		{% endif %}
+
+		<div class="col-sm-6 ">
+
+			<h1>Editar nombre completo</h1>
+
+			<form class="register_form" method="post" action=""> <!-- Esta parte tiene que coincidir con el name del loginView -->
+				{% csrf_token %}
+
+
+				{{ form.as_p }}
+
+				<input class="btn btn-outline-primary btn-block" type="submit" value="Editar" />
+			</form>
+
+		</div>
+
+	</div>
+
+{% endblock %}

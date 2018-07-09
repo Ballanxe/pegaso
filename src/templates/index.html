@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block head_title %} Index || {{ block.super }} {% endblock head_title %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-sm-12">
+		{% if messages %}
+			{% for message in messages %}
+				<p>{{ message }}</p>
+			{% endfor %}
+		{% endif %}
+
+		<form method="get">
+		  <div class="well">
+		    <div class="row">
+		      <div class="form-group">
+		        {{ filter.form.types.label_tag }}
+		        {% render_field filter.form.types class="form-control" %}
+		      </div>
+		      <div class="form-group">
+		        {{ filter.form.currency.label_tag }}
+		        {% render_field filter.form.currency class="form-control" %}
+		      </div>
+		      <div class="form-group">
+		        {{ filter.form.payment_method.label_tag }}
+		        {% render_field filter.form.payment_method class="form-control" %}
+		      </div>
+		      <div class="form-group">
+		        {{ filter.form.max_limit.label_tag }}
+		        {% render_field filter.form.max_limit class="form-control" %}
+		      </div>
+		     
+		    </div>
+			<button type="submit">Search</button>
+		  </div>
+		</form>
+
+			{% if filter.is_bound %}
+
+			<table class="table table-hover table-striped">
+			  <thead>
+			    <tr>
+			      <th>Corredor</th>
+			      <th>Método de pago</th>
+			      <th>Precio / BTC</th>
+			      <th>Limites</th>
+			      <th>Operación</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+
+			 	{% for obj in filter.qs %}
+
+			    <tr>
+			      <th scope="row"><a href="{% url 'profiles:detail' obj.owner.username %}">{{ obj.owner.username }}</a></th>
+			      <td>{{ obj.payment_method }}</td>
+			      <td>{{ obj.price }}</td>
+			      <td>{{ obj.get_limits }}</td>
+			      <td><a href="{% url 'ads:detail' obj.pk %}" class="btn btn-outline-primary btn-block">{{ obj.get_button_tag }}</a></td>
+			    </tr>
+
+				{% empty %}
+
+
+				<p>No results</p>
+
+
+				{% endfor %}
+
+				{% endif %}
+
+
+
+			<table class="table table-hover table-striped">
+			  <thead>
+			    <tr>
+			      <th>Corredor</th>
+			      <th>Método de pago</th>
+			      <th>Precio / BTC</th>
+			      <th>Limites</th>
+			      <th>Operación</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+
+			 	{% for obj in buy_objects %}
+
+			    <tr>
+			      <th scope="row"><a href="{% url 'profiles:detail' obj.owner.username %}">{{ obj.owner.username }}</a></th>
+			      <td>{{ obj.payment_method }}</td>
+			      <td>{{ obj.price }}</td>
+			      <td>{{ obj.get_limits }}</td>
+			      <td><a href="{% url 'ads:detail' obj.pk %}" class="btn btn-outline-primary btn-block">{{ obj.get_button_tag }}</a></td>
+			    </tr>
+
+				{% empty %}
+
+
+				<p>No results</p>
+
+
+				{% endfor %}
+
+			<h1>Vender Bitcoins</h1>
+
+
+			<table class="table table-hover table-striped">
+			  <thead>
+			    <tr>
+			      <th>Corredor</th>
+			      <th>Método de pago</th>
+			      <th>Precio / BTC</th>
+			      <th>Limites</th>
+			      <th>Operación</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+
+			 	{% for obj in sell_objects %}
+
+			    <tr>
+			      <th scope="row"><a href="{% url 'profiles:detail' obj.owner.username %}">{{ obj.owner.username }}</a></th>
+			      <td>{{ obj.payment_method }}</td>
+			      <td>{{ obj.price }}</td>
+			      <td>{{ obj.get_limits }}</td>
+			      <td><a href="{% url 'ads:detail' obj.pk %}" class="btn btn-outline-primary btn-block">{{ obj.get_button_tag }}</a></td>
+			    </tr>
+
+				{% empty %}
+
+
+				<p>No results</p>
+
+
+				{% endfor %}
+
+
+			
+	</div>	
+
+	
+</div>
+
+
+
+
+{% endblock %}

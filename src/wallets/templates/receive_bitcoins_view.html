@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block head_title %} Send Bitcoins || {{ block.super }} {% endblock head_title %}
+
+
+{% block content %}
+
+    <div class="row">
+
+    	<div class="col-sm-6">
+
+    		<ul class="nav nav-tabs  wallet-nav-tabs">
+    		  <li class="nav-item">
+    		    <a class="nav-link " href="{% url 'wallets:send' %}">Enviar Bitcoins</a>
+    		  </li>
+    		  <li class="nav-item">
+    		    <a class="nav-link active" href="{% url 'wallets:receive' %}">Recibir Bitcoin</a>
+    		  </li>
+    		  <li class="nav-item">
+    		    <a class="nav-link" href="{% url 'wallets:transactions' %}">Transacciones</a>
+    		  </li>
+    		</ul>
+
+			<h1>Recibir Bitcoins</h1>
+
+			<h3>{{ wallet.receiving_address }}</h3>
+
+			{% include 'snippets/wallet_receive_collapse.html' %}
+
+
+
+		</div>
+
+    </div>
+
+
+{% endblock %}
